@@ -192,6 +192,7 @@ p {
 .theme-switch-wrapper {
   display: flex;
   align-items: center;
+  /*bigger number bc we want toggle to be on top of navigation header */
   z-index: 100;
   position: fixed;
   right: 25px;
