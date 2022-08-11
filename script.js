@@ -40,23 +40,34 @@ function lightMode() {
 
 }
 
-
 // Switch Theme Dynamically
 function switchTheme(event) {
     // when boolean is checked (True)  - enable dark mode
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
         darkMode();
     }
     // when boolean is unchecked (False) - enable light mode
     else {
         document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
         lightMode();
     }
 }
 
-// unchecked - light mode
-// checked - dark mode
-
 // Event Listener
 toggleSwitch.addEventListener('change', switchTheme);
+
+// Check Local Storage for Theme
+const currentTheme = localStorage.getItem('theme');
+// check if value for theme exists before we retrieve it
+if (currentTheme) {
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    // set toggle switch to dark mode if theme is dark
+    if (currentTheme === 'dark') {
+        toggleSwitch.checked = true;
+        // call dark mode function
+        darkMode();
+    }
+}
