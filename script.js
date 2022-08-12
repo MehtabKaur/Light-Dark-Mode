@@ -6,6 +6,7 @@ const image2 = document.getElementById('image2');
 const image3 = document.getElementById('image3');
 const textBox = document.getElementById('text-box');
 
+
 // Dark or Light images
 function imageMode(color) {
     // pass in light or dark mode for image color
@@ -14,45 +15,31 @@ function imageMode(color) {
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 }
 
-// Dark Mode Styles
-function darkMode() {
-    nav.style.backgroundColor = 'rgb(0 0 0 / 50%)'; // black, 50% opacity
-    textBox.style.backgroundColor = 'rgb(255 255 255 / 50%)'; // white, 50% opacity
-    // change toggle-text (light mode to dark mode)
-    toggleIcon.children[0].textContent = 'Dark Mode';
-    // replace icon (sun to moon)
-    toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon');
-    // images for dark mode
-    imageMode('dark');
+// Toggle between dark and light mode - change colors and icons
+function toggleDarkLightMode(isDark) {
+    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    // change toggle-text
+    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    // change toggle-icon
+    isDark ?  toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+    // change images
+    isDark ? imageMode('dark') : imageMode('light');
 }
-
-
-// Light Mode Styles
-function lightMode() {
-    nav.style.backgroundColor = 'rgb(255 255 255 / 50%)'; // white, 50% opacity
-    textBox.style.backgroundColor = 'rgb(0 0 0 / 50%)'; // black, 50% opacity
-    // change toggle-text (to light mode)
-    toggleIcon.children[0].textContent = 'Light Mode';
-    // replace icon (moon to sun)
-    toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-    // images for light mode
-    imageMode('light');
-
-}
-
+                                               
 // Switch Theme Dynamically
 function switchTheme(event) {
     // when boolean is checked (True)  - enable dark mode
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
-        darkMode();
+        toggleDarkLightMode(true);
     }
     // when boolean is unchecked (False) - enable light mode
     else {
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
-        lightMode();
+        toggleDarkLightMode(false);
     }
 }
 
@@ -67,7 +54,7 @@ if (currentTheme) {
     // set toggle switch to dark mode if theme is dark
     if (currentTheme === 'dark') {
         toggleSwitch.checked = true;
-        // call dark mode function
-        darkMode();
+        // toggle to dark mode
+        toggleDarkLightMode(true);
     }
 }
