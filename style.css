@@ -91,7 +91,7 @@ a:focus {
 
 /* About Section */
 .about-container {
-  display:flex;
+  display: flex;
 }
 
 .image-container {
@@ -263,4 +263,16 @@ input:checked + .slider::before {
 .fas {
   font-size: 30px;
   margin-right: 5px;
+}
+
+/* Media Query: Tablet or Smaller */
+@media screen and (max-width: 1000px) {
+  /* hide mode text */
+  .toggle-text {
+    display: none;
+  }
+  /* display images stacked vertically */
+  .about-container {
+    display: block;
+  }
 }
